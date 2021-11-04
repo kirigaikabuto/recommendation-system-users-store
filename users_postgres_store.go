@@ -172,12 +172,8 @@ func (u *usersStore) GetByUsernameAndPassword(username, password string) (*User,
 		return nil, err
 	}
 	fmt.Println("old user", user)
-	hashedPassword, err := setdata_common.HashPassword(password)
-	if err != nil {
-		return nil, err
-	}
-	fmt.Println("login user hashed password", hashedPassword)
-	fmt.Println([]byte(hashedPassword))
+	fmt.Println(password)
+	fmt.Println([]byte(password))
 	fmt.Println([]byte(user.Password))
 	compare := setdata_common.CheckPasswordHash(password, user.Password)
 	fmt.Println(compare)
