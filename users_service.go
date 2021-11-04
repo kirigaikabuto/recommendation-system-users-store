@@ -29,7 +29,8 @@ func (u *userService) CreateUser(cmd *CreateUserCommand) (*User, error) {
 		FirstName: cmd.FirstName,
 		LastName:  cmd.LastName,
 		Email:     cmd.Email,
-		LoginType: setdata_common.Email,
+		Age:       cmd.Age,
+		Country:   cmd.Country,
 	}
 	hashedPassword, err := setdata_common.HashPassword(user.Password)
 	if err != nil {
@@ -70,6 +71,9 @@ func (u *userService) UpdateUser(cmd *UpdateUserCommand) (*User, error) {
 	}
 	if cmd.Email != "" && cmd.Email != oldUser.Email {
 		userUpdate.Email = &cmd.Email
+	}
+	if cmd.Age != 0 && cmd.Age != oldUser.Age {
+		userUpdate.Username = &cmd.Username
 	}
 	return u.userStore.Update(userUpdate)
 }

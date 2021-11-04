@@ -14,9 +14,10 @@ var marketplaceAppRepoQueries = []string{
 		username TEXT,
 		password TEXT,
 		email TEXT,
-		login_type TEXT,
 		first_name TEXT,
 		last_name TEXT,
+		age integer,
+		country TEXT,
 		PRIMARY KEY(id)
 	);`,
 }
@@ -42,9 +43,9 @@ func NewPostgresUsersStore(cfg PostgresConfig) (UsersStore, error) {
 }
 
 func (u *usersStore) Create(user *User) (*User, error) {
-	result, err := u.db.Exec("INSERT INTO users (id, username, password, email, login_type, first_name, last_name) "+
+	result, err := u.db.Exec("INSERT INTO users (id, username, password, email, first_name, last_name, age, country) "+
 		"VALUES ($1, $2, $3, $4, $5, $6, $7)",
-		user.Id, user.Username, user.Password, user.Email, user.LoginType.ToString(), user.FirstName, user.LastName,
+		user.Id, user.Username, user.Password, user.Email, user.FirstName, user.LastName, user.Age, user.Country,
 	)
 	if err != nil {
 		return nil, err
@@ -89,6 +90,16 @@ func (u *usersStore) Update(user *UserUpdate) (*User, error) {
 		parts = append(parts, "username = $"+strconv.Itoa(cnt))
 		values = append(values, user.Username)
 	}
+	if user.Age != nil {
+		cnt++
+		parts = append(parts, "age = $"+strconv.Itoa(cnt))
+		values = append(values, user.Age)
+	}
+	if user.Country != nil {
+		cnt++
+		parts = append(parts, "country = $"+strconv.Itoa(cnt))
+		values = append(values, user.Age)
+	}
 	if len(parts) <= 0 {
 		return nil, ErrNothingToUpdate
 	}
@@ -127,9 +138,9 @@ func (u *usersStore) Delete(id string) error {
 
 func (u *usersStore) Get(id string) (*User, error) {
 	user := &User{}
-	err := u.db.QueryRow("select id, username, password, email, login_type, first_name, last_name "+
+	err := u.db.QueryRow("select id, username, password, email, first_name, last_name, age, country "+
 		"from users where id = $1 limit 1", id).
-		Scan(&user.Id, &user.Username, &user.Password, &user.Email, &user.LoginType, &user.FirstName, &user.LastName)
+		Scan(&user.Id, &user.Username, &user.Password, &user.Email, &user.FirstName, &user.LastName, &user.Age, &user.Country)
 	if err == sql.ErrNoRows {
 		return nil, ErrUserNotFound
 	} else if err != nil {
@@ -141,7 +152,7 @@ func (u *usersStore) Get(id string) (*User, error) {
 func (u *usersStore) List() ([]User, error) {
 	users := []User{}
 	var values []interface{}
-	q := "select id, username, password, email, login_type, first_name, last_name from users"
+	q := "select id, username, password, email, first_name, last_name, age, country from users"
 	//cnt := 1
 	rows, err := u.db.Query(q, values...)
 	if err != nil {
@@ -150,7 +161,7 @@ func (u *usersStore) List() ([]User, error) {
 	defer rows.Close()
 	for rows.Next() {
 		user := User{}
-		err = rows.Scan(&user.Id, &user.Username, &user.Password, &user.Email, &user.LoginType, &user.FirstName, &user.LastName)
+		err = rows.Scan(&user.Id, &user.Username, &user.Password, &user.Email, &user.FirstName, &user.LastName, &user.Age, &user.Country)
 		if err != nil {
 			return nil, err
 		}
@@ -161,9 +172,9 @@ func (u *usersStore) List() ([]User, error) {
 
 func (u *usersStore) GetByUsernameAndPassword(username, password string) (*User, error) {
 	user := &User{}
-	err := u.db.QueryRow("select id, username, password, email, login_type, first_name, last_name "+
+	err := u.db.QueryRow("select id, username, password, email, first_name, last_name, age, country "+
 		"from users where username = $1 limit 1", &username).
-		Scan(&user.Id, &user.Username, &user.Password, &user.Email, &user.LoginType, &user.FirstName, &user.LastName)
+		Scan(&user.Id, &user.Username, &user.Password, &user.Email, &user.FirstName, &user.LastName, &user.Age, &user.Country)
 	if err == sql.ErrNoRows {
 		return nil, ErrUserNotFound
 	} else if err != nil {

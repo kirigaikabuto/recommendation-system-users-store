@@ -6,6 +6,8 @@ type CreateUserCommand struct {
 	Email     string `json:"email"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+	Age       int64  `json:"age"`
+	Country   string `json:"country"`
 }
 
 func (cmd *CreateUserCommand) Exec(svc interface{}) (interface{}, error) {
@@ -19,6 +21,8 @@ type UpdateUserCommand struct {
 	Email     string `json:"email"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+	Age       int64  `json:"age"`
+	Country   string `json:"country"`
 }
 
 func (cmd *UpdateUserCommand) Exec(svc interface{}) (interface{}, error) {
