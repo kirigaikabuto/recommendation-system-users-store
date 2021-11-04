@@ -172,6 +172,11 @@ func (u *usersStore) GetByUsernameAndPassword(username, password string) (*User,
 		return nil, err
 	}
 	fmt.Println("old user", user)
+	hashedPassword, err := setdata_common.HashPassword(password)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("login user hashed password", hashedPassword)
 	compare := setdata_common.CheckPasswordHash(password, user.Password)
 	if !compare {
 		return nil, ErrUserPasswordNotCorrect
