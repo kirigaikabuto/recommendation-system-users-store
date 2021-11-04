@@ -2,6 +2,8 @@ package recommendation_system_users_store
 
 import (
 	"database/sql"
+	"fmt"
+	setdata_common "github.com/kirigaikabuto/setdata-common"
 	_ "github.com/lib/pq"
 	"log"
 	"strconv"
@@ -168,6 +170,15 @@ func (u *usersStore) GetByUsernameAndPassword(username, password string) (*User,
 		return nil, ErrUserNotFound
 	} else if err != nil {
 		return nil, err
+	}
+	fmt.Println("old user", user)
+	fmt.Println(password)
+	fmt.Println([]byte(password))
+	fmt.Println([]byte(user.Password))
+	compare := setdata_common.CheckPasswordHash(password, user.Password)
+	fmt.Println(compare)
+	if !compare {
+		return nil, ErrUserPasswordNotCorrect
 	}
 	return user, nil
 }

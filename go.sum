@@ -13,6 +13,8 @@ github.com/kirigaikabuto/setdata-common v1.0.1-0.20211012131738-4d0bfa9dbade h1:
 github.com/kirigaikabuto/setdata-common v1.0.1-0.20211012131738-4d0bfa9dbade/go.mod h1:A5j+H7WGjHH0vqZ2oYNqrx8OpZfOd5Lp5PsxSqyXmOk=
 github.com/kirigaikabuto/setdata-common v1.0.1-0.20211104125724-c9a1a8f85af1 h1:T0xFnsEctZCSL98OQcZPrHEBon6fvqL7FwLHtOX6wfk=
 github.com/kirigaikabuto/setdata-common v1.0.1-0.20211104125724-c9a1a8f85af1/go.mod h1:A5j+H7WGjHH0vqZ2oYNqrx8OpZfOd5Lp5PsxSqyXmOk=
+github.com/kirigaikabuto/setdata-common v1.0.1-0.20211104130143-ab6a82248106 h1:UN1rVN661bNFvkP0BB12VGU2wXn/9hR4ThL1CgmseTA=
+github.com/kirigaikabuto/setdata-common v1.0.1-0.20211104130143-ab6a82248106/go.mod h1:A5j+H7WGjHH0vqZ2oYNqrx8OpZfOd5Lp5PsxSqyXmOk=
 github.com/konsorten/go-windows-terminal-sequences v0.0.0-20180402223658-b729f2633dfe h1:CHRGQ8V7OlCYtwaKPJi3iA7J+YdNKdo8j7nG5IgDhjs=
 github.com/konsorten/go-windows-terminal-sequences v0.0.0-20180402223658-b729f2633dfe/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
 github.com/lib/pq v1.10.3 h1:v9QZf2Sn6AmjXtQeFpdoq/eaNtYP6IN+7lcrygsIAtg=
