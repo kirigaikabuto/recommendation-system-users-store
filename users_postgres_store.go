@@ -44,7 +44,7 @@ func NewPostgresUsersStore(cfg PostgresConfig) (UsersStore, error) {
 
 func (u *usersStore) Create(user *User) (*User, error) {
 	result, err := u.db.Exec("INSERT INTO users (id, username, password, email, first_name, last_name, age, country) "+
-		"VALUES ($1, $2, $3, $4, $5, $6, $7)",
+		"VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
 		user.Id, user.Username, user.Password, user.Email, user.FirstName, user.LastName, user.Age, user.Country,
 	)
 	if err != nil {
@@ -98,7 +98,7 @@ func (u *usersStore) Update(user *UserUpdate) (*User, error) {
 	if user.Country != nil {
 		cnt++
 		parts = append(parts, "country = $"+strconv.Itoa(cnt))
-		values = append(values, user.Age)
+		values = append(values, user.Country)
 	}
 	if len(parts) <= 0 {
 		return nil, ErrNothingToUpdate
